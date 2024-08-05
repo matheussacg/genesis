@@ -1,0 +1,19 @@
+# Arquivos de byte compilados do Python
+__pycache__/
+
+# Arquivos de ambiente
+.env
+.env/ 
+env/
+ENV
+env.back/
+venv.back
+
+# Diretório de ambiente virtual
+venv/
+
+limpar_pycache
+
+#Certificados
+.crt
+.key
