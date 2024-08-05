@@ -11,7 +11,6 @@ venv.back
 
 # Diretório de ambiente virtual
 venv/
-
 limpar_pycache
 
 #Certificados
