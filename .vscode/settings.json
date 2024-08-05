@@ -1,0 +1,23 @@
+{
+    "editor.fontSize" : 16,
+    "terminal.integrated.fontSize": 16,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    // Desative o linting Python integrado
+    "python.linting.enabled": false,
+
+    // Formatação ao salvar usando Black
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+
+    // Configurações para Pylint
+    "pylint.args": [
+        "--disable=C0114",
+        "--max-line-length=88"
+    ],
+    "pylint.enabled": true,
+    "python.createEnvironment.trigger": "off"
+}
