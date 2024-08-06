@@ -29,9 +29,6 @@
         "79"
     ],
     "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-      "--ignore=E24,W504,E501",
-      "--verbose"
-    ],
+
     "python.createEnvironment.trigger": "off",
 }
