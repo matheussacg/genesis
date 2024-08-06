@@ -22,7 +22,9 @@ class Settings(BaseSettings):
     # Rota base da API
     API_V1_STR: str = "/api/v1"
     # URL do banco de dados
-    DB_URL: str = f"postgresql+asyncpg://{db_user}:{db_senha}@{db_host}:5432/{db_nome}"
+    DB_URL: str = (
+        f"postgresql+asyncpg://{db_user}:{db_senha}@{db_host}:5432/{db_nome}"
+    )
     # Base de modelo do SQLAlchemy
     DBBaseModel: DeclarativeMeta = declarative_base()
     # Configurações para geração de tokens JWT

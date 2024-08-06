@@ -21,10 +21,15 @@ def gerar_senha():
     letras_minusculas = string.ascii_lowercase
     numero = string.digits
 
-    senha = [secrets.choice(letras_maiusculas), secrets.choice(letras_minusculas)]
+    senha = [
+        secrets.choice(letras_maiusculas),
+        secrets.choice(letras_minusculas),
+    ]
 
     for _ in range(6):
-        senha.append(secrets.choice(letras_maiusculas + letras_minusculas + numero))
+        senha.append(
+            secrets.choice(letras_maiusculas + letras_minusculas + numero)
+        )
 
     random.shuffle(senha)
     senha = "".join(senha)

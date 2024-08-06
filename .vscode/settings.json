@@ -26,7 +26,7 @@
     },
     "python.formatting.blackArgs": [
         "--line-length",
-        "88"
+        "79"
     ],
     "python.linting.flake8Enabled": true,
     "python.createEnvironment.trigger": "off"

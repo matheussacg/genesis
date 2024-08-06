@@ -23,7 +23,8 @@ async def enviar_link_acesso(email_schema: EmailSchema):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=(
-                "Apenas emails com o domínio @fesfsus.ba.gov.br são autorizados"
+                "Apenas emails com o domínio @fesfsus.ba.gov.br"
+                "são autorizados"
                 "a receber o link de acesso."
             ),
         )
@@ -37,7 +38,8 @@ async def enviar_link_acesso(email_schema: EmailSchema):
     # Preparar o corpo do email
     body = (
         "Olá,<br><br>"
-        "Você solicitou um link de acesso ao Sistema de Registro de Documentos. "
+        "Você solicitou um link de acesso ao Sistema de Registro de "
+        "Documentos. "
         "Clique no link abaixo para acessar:<br>"
         f"<a href='{link_acesso}'>Clique aqui para acessar o sistema</a>"
     )

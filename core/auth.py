@@ -28,7 +28,9 @@ def criar_token(
 
     payload["scopes"] = scopes
 
-    return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.ALGORITHM)
+    return jwt.encode(
+        payload, settings.JWT_SECRET, algorithm=settings.ALGORITHM
+    )
 
 
 def criar_token_acesso(sub: str, scopes: list[str] = []) -> str:
