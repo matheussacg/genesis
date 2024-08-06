@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Date, String
-
 from core.configs import settings
+from sqlalchemy import Column, Date, String
 
 
 # Tabela de funcionários

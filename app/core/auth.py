@@ -1,10 +1,9 @@
 from datetime import datetime, timedelta
 
+from core.configs import settings
 from fastapi.security import HTTPBearer
 from jose import jwt
 from pytz import timezone
-
-from core.configs import settings
 
 oauth2_schema = HTTPBearer(bearerFormat="JWT", auto_error=False)
 
