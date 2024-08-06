@@ -3,7 +3,6 @@
       "ms-python.python",
       "esbenp.prettier-vscode",
       "ms-python.black-formatter",
-      "ms-python.pylint",
       "charliermarsh.ruff",
     ],
     "unwantedRecommendations": []

@@ -1,3 +1,4 @@
 [flake8]
 max-line-length = 79
-ignore = E203, W503
+ignore = E203, W503, E501
+#extend-ignore = E501  # Ignora a linha longa de importação

@@ -7,7 +7,7 @@
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.colorTheme": "SynthWave '84",
+    "workbench.colorTheme": "Dracula Theme",
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -29,5 +29,9 @@
         "79"
     ],
     "python.linting.flake8Enabled": true,
-    "python.createEnvironment.trigger": "off"
+    "python.linting.flake8Args": [
+      "--ignore=E24,W504,E501",
+      "--verbose"
+    ],
+    "python.createEnvironment.trigger": "off",
 }
