@@ -1,9 +1,18 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: stable
+    rev: 24.8.0  # Verifique a versão mais recente no repositório do Black
     hooks:
       - id: black
-  - repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v2.9.3
+        language_version: python3
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1  # Verifique a versão mais recente no repositório do isort
     hooks:
-      - id: pylint
+      - id: isort
+        language_version: python3
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1  # Use a versão mais recente disponível
+    hooks:
+      - id: flake8
+        language_version: python3

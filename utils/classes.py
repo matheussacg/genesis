@@ -1,6 +1,7 @@
-from pydantic import BaseModel, validator, Field
-from validate_docbr import CPF
 import re
+
+from pydantic import BaseModel, Field, validator
+from validate_docbr import CPF
 
 
 class UsuarioCPF(BaseModel):

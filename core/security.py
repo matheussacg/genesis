@@ -1,8 +1,8 @@
 import random
 import secrets
 import string
-from passlib.context import CryptContext
 
+from passlib.context import CryptContext
 
 CRIPTO = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

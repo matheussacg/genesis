@@ -1,5 +1,5 @@
-from sqlalchemy import String, Column, ForeignKey, Date, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Date, String
+
 from core.configs import settings
 
 

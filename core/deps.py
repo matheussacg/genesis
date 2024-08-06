@@ -1,11 +1,13 @@
 from typing import AsyncGenerator
+
 from fastapi import Depends, HTTPException, status
-from jose import jwt, JWTError
-from sqlalchemy.ext.asyncio import AsyncSession
-from core.database import Session
-from core.configs import settings
-from core.auth import oauth2_schema
 from fastapi.security import HTTPAuthorizationCredentials
+from jose import JWTError, jwt
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from core.auth import oauth2_schema
+from core.configs import settings
+from core.database import Session
 
 
 async def get_session() -> AsyncGenerator:

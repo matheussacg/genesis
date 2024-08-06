@@ -1,23 +1,33 @@
 {
-    "editor.fontSize" : 16,
-    "terminal.integrated.fontSize": 16,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
+    "editor.minimap.enabled": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.colorTheme": "SynthWave '84",
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.autoSave": "afterDelay",
+    "git.confirmSync": false,
+    "cmake.showOptionsMovedNotification": false,
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
     },
     // Desative o linting Python integrado
     "python.linting.enabled": false,
-
     // Formatação ao salvar usando Black
     "editor.formatOnSave": true,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-
-    // Configurações para Pylint
-    "pylint.args": [
-        "--disable=C0114",
-        "--max-line-length=88"
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "88"
     ],
-    "pylint.enabled": true,
+    "python.linting.flake8Enabled": true,
     "python.createEnvironment.trigger": "off"
 }

@@ -1,11 +1,10 @@
 # Arquivo de configurações da api
+import os
+
+import dotenv
 from fastapi_mail import ConnectionConfig
 from pydantic_settings import BaseSettings
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.declarative import DeclarativeMeta
-import os
-import dotenv
-
+from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 
 dotenv.load_dotenv()
 
