@@ -7,7 +7,7 @@
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.colorTheme": "Dracula Theme",
+    "workbench.colorTheme": "OM Theme (Default Dracula Italic)",
     "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
