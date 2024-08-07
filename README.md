@@ -175,16 +175,16 @@ pre-commit run --all-files
 ### Diretórios
 
 -`app/`: Contém a aplicação principal.
---    `api/`: Diretório contendo as rotas e versões da API.
---    `core/`: Configurações centrais, como autenticação, banco de dados, etc.
---    `models/`: Define os modelos de dados e tabelas do banco de dados.
---    `schema/`: Esquemas para validação de dados usando Pydantic.
---    `services/`: Lógica de negócios e funções auxiliares usadas pelos endpoints.
---    `utils/`: Funções utilitárias usadas em várias partes do projeto.
+-    `api/`: Diretório contendo as rotas e versões da API.
+-    `core/`: Configurações centrais, como autenticação, banco de dados, etc.
+-    `models/`: Define os modelos de dados e tabelas do banco de dados.
+-    `schema/`: Esquemas para validação de dados usando Pydantic.
+-    `services/`: Lógica de negócios e funções auxiliares usadas pelos endpoints.
+-    `utils/`: Funções utilitárias usadas em várias partes do projeto.
 -`migrations/`: Diretório contendo as migrações do banco de dados gerenciadas pelo Alembic.
 -`test/`: Diretório para testes, dividido em:
----    `integration/`: Testes de integração.
----    `unit/`: Testes unitários.
+-    `integration/`: Testes de integração.
+-    `unit/`: Testes unitários.
 -`venv/`: Ambiente virtual do Python (opcional).
 
 ### Arquivos principais
