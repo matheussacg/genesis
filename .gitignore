@@ -11,8 +11,12 @@ venv.back
 
 # Diretório de ambiente virtual
 venv/
+
+# Ignorar arquivos específicos
 limpar_pycache.py
 limpar_pycache
+criar_tabelas.py
+criar_tabelas
 
 #Certificados
 .crt
