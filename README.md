@@ -112,7 +112,7 @@ alembic upgrade head
 
 08. **Configurações de Formatação e Linting**:
 
-### Black - Formatação de Código
+#### Black - Formatação de Código
 
 - Black é o formatador de código configurado para este projeto. Para formatar o código, execute:
 
@@ -124,7 +124,7 @@ black .\main.py # Diretório específico
 
 ```
 
-### Isort - Organização de Importações
+#### Isort - Organização de Importações
 
 - Isort organiza as importações automaticamente. Para organizar as importações no projeto, execute:
 
@@ -136,7 +136,7 @@ isort .\main.py # Diretório específico
 
 ```
 
-### Flake8 - Linting de Código
+#### Flake8 - Linting de Código
 
 - Flake8 é usado para garantir a qualidade do código. Para executar o linting, use:
 
@@ -150,7 +150,7 @@ flake8 .\main.py # Diretório específico
 
 09. **Pre-commit**:
 
-### Automatização com Pre-commit
+#### Automatização com Pre-commit
 
 - Pre-commit é configurado para rodar Black, Isort e Flake8 antes de cada commit, garantindo que o código esteja sempre formatado e lintado.
 
@@ -174,18 +174,18 @@ pre-commit run --all-files
 
 ### Diretórios
 
-`app/`: Contém a aplicação principal.
-    `api/`: Diretório contendo as rotas e versões da API.
-    `core/`: Configurações centrais, como autenticação, banco de dados, etc.
-    `models/`: Define os modelos de dados e tabelas do banco de dados.
-    `schema/`: Esquemas para validação de dados usando Pydantic.
-    `services/`: Lógica de negócios e funções auxiliares usadas pelos endpoints.
-    `utils/`: Funções utilitárias usadas em várias partes do projeto.
-`migrations/`: Diretório contendo as migrações do banco de dados gerenciadas pelo Alembic.
-`test/`: Diretório para testes, dividido em:
-    `integration/`: Testes de integração.
-    `unit/`: Testes unitários.
-`venv/`: Ambiente virtual do Python (opcional).
+-`app/`: Contém a aplicação principal.
+-    `api/`: Diretório contendo as rotas e versões da API.
+-    `core/`: Configurações centrais, como autenticação, banco de dados, etc.
+-    `models/`: Define os modelos de dados e tabelas do banco de dados.
+-    `schema/`: Esquemas para validação de dados usando Pydantic.
+-    `services/`: Lógica de negócios e funções auxiliares usadas pelos endpoints.
+-    `utils/`: Funções utilitárias usadas em várias partes do projeto.
+-`migrations/`: Diretório contendo as migrações do banco de dados gerenciadas pelo Alembic.
+-`test/`: Diretório para testes, dividido em:
+-    `integration/`: Testes de integração.
+-    `unit/`: Testes unitários.
+-`venv/`: Ambiente virtual do Python (opcional).
 
 ### Arquivos principais
 
