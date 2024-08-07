@@ -174,7 +174,7 @@ pre-commit run --all-files
 
 ### Diretórios
 
--   `app/`: Contém a aplicação principal.
+-`app/`: Contém a aplicação principal.
 
 -    `api/`: Diretório contendo as rotas e versões da API.
 -    `core/`: Configurações centrais, como autenticação, banco de dados, etc.
@@ -183,13 +183,13 @@ pre-commit run --all-files
 -    `services/`: Lógica de negócios e funções auxiliares usadas pelos endpoints.
 -    `utils/`: Funções utilitárias usadas em várias partes do projeto.
 
--   `migrations/`: Diretório contendo as migrações do banco de dados gerenciadas pelo Alembic.
+-`migrations/`: Diretório contendo as migrações do banco de dados gerenciadas pelo Alembic.
 
--   `test/`: Diretório para testes, dividido em:
+-`test/`: Diretório para testes, dividido em:
 -    `integration/`: Testes de integração.
 -    `unit/`: Testes unitários.
 
--   `venv/`: Ambiente virtual do Python (opcional).
+-`venv/`: Ambiente virtual do Python (opcional).
 
 ### Arquivos principais
 
