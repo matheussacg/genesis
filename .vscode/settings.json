@@ -17,18 +17,10 @@
     "[vue]": {
         "editor.defaultFormatter": "Vue.volar"
     },
-    // Desative o linting Python integrado
-    "python.linting.enabled": false,
     // Formatação ao salvar usando Black
     "editor.formatOnSave": true,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "python.formatting.blackArgs": [
-        "--line-length",
-        "79"
-    ],
-    "python.linting.flake8Enabled": true,
-
     "python.createEnvironment.trigger": "off",
 }
