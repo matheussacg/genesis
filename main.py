@@ -1,7 +1,8 @@
-from api.api import api_router
-from core.configs import settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.api import api_router
+from app.core.configs import settings
 
 app = FastAPI(title="Nome do Sistema")
 app.include_router(api_router, prefix=settings.API_V1_STR)

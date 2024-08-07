@@ -1,12 +1,13 @@
 import os
 
-from core.auth import criar_token_acesso_formulario
-from core.configs import config
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi_mail import FastMail, MessageSchema
-from schema.usuario_schema import EmailSchema
+
+from app.core.auth import criar_token_acesso_formulario
+from app.core.configs import config
+from app.schema.user_schema import EmailSchema
 
 load_dotenv()
 link_acesso_base = os.getenv("LINK_ACESSO")

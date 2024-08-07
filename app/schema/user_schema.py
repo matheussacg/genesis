@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, EmailStr, Field
 
 
-class UsuarioSchemaBase(BaseModel):
+class UserSchemaBase(BaseModel):
     cpf: str
     nome: Optional[str]
     endereco: Optional[str]
@@ -25,7 +25,7 @@ class UsuarioSchemaBase(BaseModel):
         from_attributes = True
 
 
-class UsuarioSchemaUp(BaseModel):
+class UserSchemaUp(BaseModel):
     cpf: str = Field(..., min_length=11, max_length=11)
     cod_banco: Optional[str] = None
     nome_banco: Optional[str] = None

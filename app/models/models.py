@@ -1,10 +1,11 @@
-from core.configs import settings
 from sqlalchemy import Column, Date, String
+
+from app.core.configs import settings
 
 
 # Tabela de funcionários
-class Usuario(settings.DBBaseModel):
-    __tablename__ = "usuario"
+class User(settings.DBBaseModel):
+    __tablename__ = "users"
 
     cpf = Column(String(11), primary_key=True, unique=True, nullable=False)
     nome = Column(String(250))
