@@ -1,4 +1,6 @@
 import os
+from typing import ClassVar
+
 import dotenv
 from fastapi_mail import ConnectionConfig
 from pydantic_settings import BaseSettings
@@ -6,23 +8,30 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 
 dotenv.load_dotenv()
 
-env = os.getenv("ENV", "development")
+env: ClassVar[str] = os.getenv("ENV", "dev")
 
 
-# Classe para armazenar configurações da api
 class Settings(BaseSettings):
     # Rota base da API
-    API_V1_STR: str = os.getenv("API_V1_STR", "/api/v1")
+    TITLE: str = os.getenv("TITLE")
+    API_V1_STR: str = os.getenv("API_V1_STR")
 
     # Configurações de banco de dados
-    if env == "development":
-        DB_URL: str = "sqlite+aiosqlite:///./dev.db"
+    if env == "dev":
+        DB_URL: ClassVar[str] = "sqlite+aiosqlite:///./dev.db"
     else:
-        DB_NOME = os.getenv("PROD_DB_NOME")
-        DB_USER = os.getenv("PROD_DB_USER")
-        DB_SENHA = os.getenv("PROD_DB_SENHA")
-        DB_HOST = os.getenv("PROD_DB_HOST")
-        DB_PORT = os.getenv("PROD_DB_PORT")
+        DB_NOME: ClassVar[str] = os.getenv("PROD_DB_NAME")
+        DB_USER: ClassVar[str] = os.getenv("PROD_DB_USER")
+        DB_SENHA: ClassVar[str] = os.getenv("PROD_DB_PASSWORD")
+        DB_HOST: ClassVar[str] = os.getenv("PROD_DB_HOST")
+        DB_PORT: ClassVar[str] = os.getenv("PROD_DB_PORT")
+
+        # Verifica se todas as variáveis de ambiente foram carregadas corretamente
+        if not all([DB_NOME, DB_USER, DB_SENHA, DB_HOST, DB_PORT]):
+            raise ValueError(
+                "Missing one or more environment variables for production database connection."
+            )
+
         DB_URL: str = (
             f"postgresql+asyncpg://{DB_USER}:{DB_SENHA}@{DB_HOST}:{DB_PORT}/{DB_NOME}"
         )
@@ -51,8 +60,12 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-# Instância das configurações da api
+# Instância das configurações da API
 settings: Settings = Settings()
+
+# print(f"Database URL: {settings.DB_URL}")
+# print(f"TITLE: {settings.TITLE}")
+# print(f"API_V1_STR: {settings.API_V1_STR}")
 
 # Configurações de conexão com o servidor de e-mail
 config = ConnectionConfig(

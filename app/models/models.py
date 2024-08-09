@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, String
+from sqlalchemy import Column, Integer, String
 
 from app.core.configs import settings
 
@@ -7,19 +7,6 @@ from app.core.configs import settings
 class User(settings.DBBaseModel):
     __tablename__ = "users"
 
-    cpf = Column(String(11), primary_key=True, unique=True, nullable=False)
-    nome = Column(String(250))
-    endereco = Column(String(250))
-    estado = Column(String(250))
-    data_nasc = Column(Date)
-    rg = Column(String(12))
-    telefone = Column(String(13))
-    cod_banco = Column(String(4))
-    nome_banco = Column(String(150), nullable=True)
-    agencia = Column(String(6))
-    conta_corrente = Column(String(14))
-    matricula = Column(String(20))
-    posto_trabalho = Column(String(250))
-    cargo = Column(String(150))
-    cidade = Column(String(250))
-    centro_custo = Column(String(150))
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)

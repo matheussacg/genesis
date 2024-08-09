@@ -1,13 +1,18 @@
 import os
+from typing import List
 
 from dotenv import load_dotenv
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi_mail import FastMail, MessageSchema
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 
 from app.core.auth import criar_token_acesso_formulario
 from app.core.configs import config
-from app.schema.user_schema import EmailSchema
+from app.core.deps import get_session
+from app.models.models import User as UserModel
+from app.schema.user_schema import EmailSchema, User, UserCreate
 
 load_dotenv()
 link_acesso_base = os.getenv("LINK_ACESSO")
@@ -23,9 +28,7 @@ async def enviar_link_acesso(email_schema: EmailSchema):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=(
-                "Apenas emails com o domínio @fesfsus.ba.gov.br"
-                "são autorizados"
-                "a receber o link de acesso."
+                "Apenas emails com o domínio @fesfsus.ba.gov.br são autorizados a receber o link de acesso."
             ),
         )
 
@@ -38,8 +41,7 @@ async def enviar_link_acesso(email_schema: EmailSchema):
     # Preparar o corpo do email
     body = (
         "Olá,<br><br>"
-        "Você solicitou um link de acesso ao Sistema de Registro de "
-        "Documentos. "
+        "Você solicitou um link de acesso ao Sistema de Registro de Documentos. "
         "Clique no link abaixo para acessar:<br>"
         f"<a href='{link_acesso}'>Clique aqui para acessar o sistema</a>"
     )
@@ -59,3 +61,62 @@ async def enviar_link_acesso(email_schema: EmailSchema):
         status_code=status.HTTP_200_OK,
         content={"message": "Email enviado com sucesso."},
     )
+
+
+@router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
+async def create_user(
+    user: UserCreate, session: AsyncSession = Depends(get_session)
+):
+    db_user = UserModel(username=user.username, email=user.email)
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+@router.get("/{user_id}", response_model=User)
+async def get_user(user_id: int, session: AsyncSession = Depends(get_session)):
+    query = select(UserModel).where(UserModel.id == user_id)
+    result = await session.execute(query)
+    user = result.scalars().first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    return user
+
+
+@router.get("/", response_model=List[User])
+async def list_users(
+    skip: int = 0,
+    limit: int = 10,
+    session: AsyncSession = Depends(get_session),
+):
+    query = select(UserModel).offset(skip).limit(limit)
+    result = await session.execute(query)
+    users = result.scalars().all()
+    return users
+
+
+@router.put("/{user_id}", response_model=User)
+async def update_user(
+    user_id: int,
+    user_update: UserCreate,
+    session: AsyncSession = Depends(get_session),
+):
+    query = select(UserModel).where(UserModel.id == user_id)
+    result = await session.execute(query)
+    db_user = result.scalars().first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    db_user.username = user_update.username
+    db_user.email = user_update.email
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
