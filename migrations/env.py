@@ -44,7 +44,7 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     url = settings.DB_URL
-    print(f"Connecting to database with URL: {url}")  # Adicione este print
+    print(f"Connecting to database with URL: {url}")
     connectable = async_engine_from_config(
         {
             "sqlalchemy.url": url,

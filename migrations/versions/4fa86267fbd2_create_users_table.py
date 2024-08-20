@@ -30,6 +30,7 @@ def upgrade() -> None:
             {"username": "alice", "email": "alice@example.com"},
             {"username": "bob", "email": "bob@example.com"},
             {"username": "jack", "email": "jack@example.com"},
+            {"username": "mat", "email": "mat@exemple.com"},
         ],
     )
 

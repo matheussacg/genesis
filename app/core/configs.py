@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 
 dotenv.load_dotenv()
 
-env: ClassVar[str] = os.getenv("ENV", "dev")
+tipo_ambiente: str = os.getenv("TIPO_AMBIENTE")
 
 
 class Settings(BaseSettings):
@@ -17,8 +17,9 @@ class Settings(BaseSettings):
     API_V1_STR: str = os.getenv("API_V1_STR")
 
     # Configurações de banco de dados
-    if env == "dev":
+    if tipo_ambiente == "dev":
         DB_URL: ClassVar[str] = "sqlite+aiosqlite:///./dev.db"
+        print(DB_URL)
     else:
         DB_NOME: ClassVar[str] = os.getenv("PROD_DB_NAME")
         DB_USER: ClassVar[str] = os.getenv("PROD_DB_USER")
@@ -35,6 +36,7 @@ class Settings(BaseSettings):
         DB_URL: str = (
             f"postgresql+asyncpg://{DB_USER}:{DB_SENHA}@{DB_HOST}:{DB_PORT}/{DB_NOME}"
         )
+        print(DB_URL)
 
     # Base de modelo do SQLAlchemy
     DBBaseModel: DeclarativeMeta = declarative_base()
@@ -47,12 +49,12 @@ class Settings(BaseSettings):
     # Configurações de log e reload
     LOG_LEVEL: str = (
         os.getenv("DEV_LOG_LEVEL")
-        if env == "development"
+        if tipo_ambiente == "dev"
         else os.getenv("PROD_LOG_LEVEL")
     )
     RELOAD: bool = (
         os.getenv("DEV_RELOAD", "false").lower() == "true"
-        if env == "development"
+        if tipo_ambiente == "dev"
         else os.getenv("PROD_RELOAD").lower() == "true"
     )
 
@@ -62,10 +64,6 @@ class Settings(BaseSettings):
 
 # Instância das configurações da API
 settings: Settings = Settings()
-
-# print(f"Database URL: {settings.DB_URL}")
-# print(f"TITLE: {settings.TITLE}")
-# print(f"API_V1_STR: {settings.API_V1_STR}")
 
 # Configurações de conexão com o servidor de e-mail
 config = ConnectionConfig(
