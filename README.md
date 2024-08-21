@@ -9,11 +9,9 @@ Sistema de exemplo exemplo exemplo
 01. **Clonar repositório**: Clone o projeto diarias para sua máquina local.
 
 ```bash
-
 git clone https://github.com/matheussacg/boilerplate-fastapi-postgres.git
 
 cd projeto
-
 ```
 
 02. **Configurar Ambiente Virtual (Opcional para DevOps)**:
@@ -21,13 +19,11 @@ cd projeto
 - Crie e ative um ambiente virtual para isolar as dependências do projeto:
 
 ```bash
-
 python -m venv venv
 
 .\venv\Scripts\activate # Windows
 
 source venv/bin/activate # macOS/Linux
-
 ```
 
 03. **Instalar Dependências**:
@@ -35,9 +31,7 @@ source venv/bin/activate # macOS/Linux
 - Instale as dependências necessárias:
 
 ```bash
-
 pip install -r requirements.txt
-
 ```
 
 04. **Criação de Token de Segurança**:
@@ -45,9 +39,7 @@ pip install -r requirements.txt
 - Para gerar um token de segurança, execute o seguinte comando:
 
 ```bash
-
 python -c "import secrets; print(secrets.token_urlsafe(32))"
-
 ```
 
 05. **Configuração do Ambiente .env**:
@@ -57,27 +49,36 @@ python -c "import secrets; print(secrets.token_urlsafe(32))"
 - Crie um arquivo `.env` na raiz do projeto e configure as variáveis de ambiente necessárias:
 
 ```plaintext
+# Configuração do tipo de ambiente
+TIPO_AMBIENTE = 'dev'
 
-DATABASE_URL=postgresql://user:password@localhost/mydatabase
+# Configurações comuns
+API_V1_STR="/api/v1"
+TITLE='Sistema Base'
 
-DB_NOME=Nome do banco
+# Configurações de desenvolvimento (DB)
+DEV_LOG_LEVEL='debug'
+DEV_RELOAD='true'
 
-DB_USER=Usuario
+# Configurações de produção (DB)
+PROD_DB_USER='postgres'
+PROD_DB_PASSWORD='123'
+PROD_DB_HOST='localhost'
+PROD_DB_PORT='5432'
+PROD_DB_NAME='testedb'
+PROD_LOG_LEVEL='info'
+PROD_RELOAD='false'
 
-DB_SENHA=Senha do banco
+# Configuração de email
+MAIL_USERNAME='teste@teste.com.br'
+MAIL_PASSWORD='teste123'
+MAIL_FROM='teste@teste.com.br'
 
-DB_HOST=Host
+# Chave secreta token
+JWT_SECRET='dfr7C9MhZojqr7ncxEB56h6klRA_5aHEEghjNFkB98'
 
-LINK_ACESSO=Link de acesso ao frontend
-
-MAIL_USER=seuemail@email.com
-
-MAIL_FROM=seuemail@email.com
-
-MAIL_PASSWORD=Senha do email
-
-JWT_SECRET=Token de segurança
-
+# Link de acesso (Frontend)
+LINK_ACESSO='sistemabase.teste.com.br'
 ```
 
 06. **Executar a aplicação**:
@@ -85,9 +86,7 @@ JWT_SECRET=Token de segurança
 - Esse comando inicia o servidor FastAPI em modo de recarregamento automático, que é útil para desenvolvimento.
 
 ```bash
-
 python main.py
-
 ```
 
 07. **Banco de Dados e Migrações**:
@@ -97,17 +96,13 @@ python main.py
 - Verifique as migrações existentes no diretório `alembic/versions` com:
 
 ```bash
-
 alembic current
-
 ```
 
 - Para aplicar as migrações e atualizar o banco de dados, use:
 
 ```bash
-
 alembic upgrade head
-
 ```
 
 08. **Configurações de Formatação e Linting**:
@@ -117,11 +112,8 @@ alembic upgrade head
 - Black é o formatador de código configurado para este projeto. Para formatar o código, execute:
 
 ```bash
-
 black .
-
 black .\main.py # Diretório específico
-
 ```
 
 #### Isort - Organização de Importações
@@ -129,11 +121,8 @@ black .\main.py # Diretório específico
 - Isort organiza as importações automaticamente. Para organizar as importações no projeto, execute:
 
 ```bash
-
 isort .
-
 isort .\main.py # Diretório específico
-
 ```
 
 #### Flake8 - Linting de Código
@@ -141,11 +130,8 @@ isort .\main.py # Diretório específico
 - Flake8 é usado para garantir a qualidade do código. Para executar o linting, use:
 
 ```bash
-
 flake8 .
-
 flake8 .\main.py # Diretório específico
-
 ```
 
 09. **Pre-commit**:
@@ -157,17 +143,13 @@ flake8 .\main.py # Diretório específico
 - Para configurar o Pre-commit no projeto, execute:
 
 ```bash
-
 pre-commit install
-
 ```
 
 - Para rodar o Pre-commit manualmente em todos os arquivos, use:
 
 ```bash
-
 pre-commit run --all-files
-
 ```
 
 10. **Estrutura do Projeto**:
@@ -205,10 +187,7 @@ Este diretório contém os endpoints da API para a versão 1.
 ### Estrutura de Diretórios
 
 - `api/v1/endpoints/`
-- `funcionario.py`: Endpoint para enviar e-mail de acesso ao sistema.
-- `localidades.py`: Endpoint para obter estados e cidades.
-- `banco.py`: Endpoint para listar bancos.
-- `diaria.py`: Endpoint para cálculos e geração de diárias.
+- `user.py`: Endpoint com todos os métodos relacionados ao usuário.
 
 ### Endpoints `user`
 
@@ -227,7 +206,6 @@ Descrição: Este endpoint envia um link de acesso para o sistema de diárias pa
 
 ````bash
 curl -X POST -H "Content-Type: application/json" -d '{"email": "usuario@fesfsus.ba.gov.br"}' http://localhost:8000/api/v1/user/enviar-link-acesso
-
 ````
 
 **Respostas**:
@@ -245,5 +223,150 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "usuario@fesfsus.
 ````bash
 {
     "detail": "Apenas emails com o domínio @fesfsus.ba.gov.br são autorizados a receber o link de acesso."
+}
+````
+
+#### URL: `/` (`http://localhost:8000/api/v1/user/`)
+
+Descrição: Este endpoint cria um novo usuário no sistema.
+
+- **Método HTTP**: POST
+- **Parâmetros**:
+  - **username**: Nome do usuário.
+  - **email**: Endereço de email do usuário.
+  - **Autenticação**:
+    - Não requer autenticação.
+- **Validações**:
+  - `username` e `email` são obrigatórios.
+- **Exemplo de Requisição**:
+
+````bash
+curl -X POST -H "Content-Type: application/json" -d '{"username": "john_doe", "email": "john_doe@example.com"}' http://localhost:8000/api/v1/user/
+````
+
+**Respostas**:
+
+- **201 Created**: O usuário foi criado com sucesso.
+
+````bash
+{
+    "id": 1,
+    "username": "john_doe",
+    "email": "john_doe@example.com"
+}
+````
+
+- **400 Bad Request**: Dados de entrada inválidos.
+
+````bash
+{
+    "detail": "Dados inválidos."
+}
+````
+
+#### URL: `/{user_id}` (`http://localhost:8000/api/v1/user/{user_id}`)
+
+Descrição: Este endpoint retorna os detalhes de um usuário específico com base no ID.
+
+- **Método HTTP**: GET
+- **Parâmetros**:
+  - **user_id**: ID do usuário.
+  - **Autenticação**:
+    - Não requer autenticação.
+- **Exemplo de Requisição**:
+
+````bash
+curl -X GET http://localhost:8000/api/v1/user/1
+````
+
+**Respostas**:
+
+- **200 OK**: Detalhes do usuário.
+
+````bash
+{
+    "id": 1,
+    "username": "john_doe",
+    "email": "john_doe@example.com"
+}
+````
+
+- **404 Not Found**: Usuário não encontrado.
+
+````bash
+{
+    "detail": "User not found"
+}
+````
+
+#### URL: `/` (`http://localhost:8000/api/v1/user/`)
+
+Descrição: Este endpoint lista os usuários registrados no sistema.
+
+- **Método HTTP**: GET
+- **Parâmetros**:
+  - **skip**: Quantidade de usuários a pular (opcional).
+  - **limit**: Quantidade máxima de usuários a retornar (opcional).
+  - **Autenticação**:
+    - Não requer autenticação.
+- **Exemplo de Requisição**:
+
+````bash
+curl -X GET http://localhost:8000/api/v1/user/?skip=0&limit=10
+````
+
+**Respostas**:
+
+- **200 OK**: Lista de usuários.
+
+````bash
+[
+    {
+        "id": 1,
+        "username": "john_doe",
+        "email": "john_doe@example.com"
+    },
+    {
+        "id": 2,
+        "username": "jane_doe",
+        "email": "jane_doe@example.com"
+    }
+]
+````
+
+#### URL: `/{user_id}` (`http://localhost:8000/api/v1/user/{user_id}`)
+
+Descrição: Este endpoint atualiza os detalhes de um usuário específico com base no ID.
+
+- **Método HTTP**: PUT
+- **Parâmetros**:
+  - **user_id**: ID do usuário.
+  - **username**: Novo nome do usuário.
+  - **email**: Novo endereço de email do usuário.
+  - **Autenticação**:
+    - Não requer autenticação.
+- **Exemplo de Requisição**:
+
+````bash
+curl -X PUT -H "Content-Type: application/json" -d '{"username": "new_username", "email": "new_email@example.com"}' http://localhost:8000/api/v1/user/1
+````
+
+**Respostas**:
+
+- **200 OK**: Usuário atualizado com sucesso.
+
+````bash
+{
+    "id": 1,
+    "username": "new_username",
+    "email": "new_email@example.com"
+}
+````
+
+- **404 Not Found**: Usuário não encontrado.
+
+````bash
+{
+    "detail": "User not found"
 }
 ````
