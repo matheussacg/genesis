@@ -20,12 +20,16 @@ def upgrade() -> None:
     )
 
     # Inserção de dados de teste
+    users_table = sa.Table(
+        "users",
+        sa.MetaData(),
+        sa.Column("id", sa.Integer, primary_key=True, index=True),
+        sa.Column("username", sa.String, unique=True, index=True),
+        sa.Column("email", sa.String, unique=True, index=True),
+    )
+
     op.bulk_insert(
-        sa.Table(
-            "users",
-            sa.MetaData(),
-            autoload_with=op.get_bind(),  # Use a conexão ativa para carregar a tabela
-        ),
+        users_table,
         [
             {"username": "alice", "email": "alice@example.com"},
             {"username": "bob", "email": "bob@example.com"},

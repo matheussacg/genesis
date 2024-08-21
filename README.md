@@ -83,7 +83,23 @@ LINK_ACESSO='sistemabase.teste.com.br'
 
 06. **Executar a aplicação**:
 
-- Esse comando inicia o servidor FastAPI em modo de recarregamento automático, que é útil para desenvolvimento.
+- A aplicação é inicializada de acordo com a configuração definida na variável TIPO_AMBIENTE no arquivo .env. Dependendo do valor atribuído, o sistema será executado em modo de desenvolvimento ou produção, com as configurações correspondentes:
+
+```bash
+TIPO_AMBIENTE='dev'
+# Inicia a aplicação utilizando SQLite (sqlite+aiosqlite) com configurações voltadas para o ambiente de desenvolvimento.
+```
+
+```bash
+TIPO_AMBIENTE='prod'
+# Inicia a aplicação utilizando PostgreSQL (postgresql+asyncpg) com configurações de produção.
+```
+
+#### Notas:
+
+- Em modo dev, a aplicação utilizará o banco de dados SQLite, ideal para desenvolvimento e testes rápidos.
+- Em modo prod, a aplicação conectará ao banco de dados PostgreSQL utilizando as credenciais e informações definidas nas variáveis de - ambiente correspondentes (PROD_DB_NAME, PROD_DB_USER, etc.).
+- Caso alguma variável de ambiente necessária para o ambiente de produção não esteja configurada corretamente, a aplicação irá gerar um erro indicando a ausência de valores obrigatórios.
 
 ```bash
 python main.py
@@ -191,7 +207,9 @@ Este diretório contém os endpoints da API para a versão 1.
 
 ### Endpoints `user`
 
-#### URL: `/enviar-link-acesso` (`http://localhost:8000/api/v1/user/enviar-link-acesso`)
+#### Enviar email com link de acesso
+
+#### URL: `/enviar-link-acesso` (http://localhost:8000/api/v1/user/enviar-link-acesso)
 
 Descrição: Este endpoint envia um link de acesso para o sistema de diárias para o email fornecido.
 
@@ -205,7 +223,7 @@ Descrição: Este endpoint envia um link de acesso para o sistema de diárias pa
 - **Exemplo de Requisição**:
 
 ````bash
-curl -X POST -H "Content-Type: application/json" -d '{"email": "usuario@fesfsus.ba.gov.br"}' http://localhost:8000/api/v1/user/enviar-link-acesso
+curl -X POST -H "Content-Type: application/json" -d '{"email": "usuario@teste.com.br"}' http://localhost:8000/api/v1/user/enviar-link-acesso
 ````
 
 **Respostas**:
@@ -225,6 +243,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"email": "usuario@fesfsus.
     "detail": "Apenas emails com o domínio @fesfsus.ba.gov.br são autorizados a receber o link de acesso."
 }
 ````
+
+#### Post para criar usuário
 
 #### URL: `/` (`http://localhost:8000/api/v1/user/`)
 
@@ -264,6 +284,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"username": "john_doe", "e
 }
 ````
 
+#### Get para retornar um usuário específico
+
 #### URL: `/{user_id}` (`http://localhost:8000/api/v1/user/{user_id}`)
 
 Descrição: Este endpoint retorna os detalhes de um usuário específico com base no ID.
@@ -299,6 +321,8 @@ curl -X GET http://localhost:8000/api/v1/user/1
 }
 ````
 
+#### Get para retornar todos os usuários
+
 #### URL: `/` (`http://localhost:8000/api/v1/user/`)
 
 Descrição: Este endpoint lista os usuários registrados no sistema.
@@ -333,6 +357,8 @@ curl -X GET http://localhost:8000/api/v1/user/?skip=0&limit=10
     }
 ]
 ````
+
+#### Put para editar um usuário específico
 
 #### URL: `/{user_id}` (`http://localhost:8000/api/v1/user/{user_id}`)
 

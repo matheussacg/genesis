@@ -9,7 +9,10 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from app.core.configs import settings
 
 config = context.config
-print(f"Using database URL: {settings.DB_URL}")
+
+database = settings.DB_BANCO
+print(f"Usando banco de dados: {database}")
+
 config.set_main_option("sqlalchemy.url", settings.DB_URL)
 
 # Interpret the config file for Python logging.
@@ -44,7 +47,7 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     url = settings.DB_URL
-    print(f"Connecting to database with URL: {url}")
+    print(f"Conectando ao banco de dados: {database}")
     connectable = async_engine_from_config(
         {
             "sqlalchemy.url": url,

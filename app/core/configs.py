@@ -15,11 +15,12 @@ class Settings(BaseSettings):
     # Rota base da API
     TITLE: str = os.getenv("TITLE")
     API_V1_STR: str = os.getenv("API_V1_STR")
+    DB_BANCO: str = "postgresql+asyncpg"
 
     # Configurações de banco de dados
     if tipo_ambiente == "dev":
         DB_URL: ClassVar[str] = "sqlite+aiosqlite:///./dev.db"
-        print(DB_URL)
+        print(f"Servidor iniciado utilizando: {DB_URL}")
     else:
         DB_NOME: ClassVar[str] = os.getenv("PROD_DB_NAME")
         DB_USER: ClassVar[str] = os.getenv("PROD_DB_USER")
@@ -34,9 +35,9 @@ class Settings(BaseSettings):
             )
 
         DB_URL: str = (
-            f"postgresql+asyncpg://{DB_USER}:{DB_SENHA}@{DB_HOST}:{DB_PORT}/{DB_NOME}"
+            f"{DB_BANCO}://{DB_USER}:{DB_SENHA}@{DB_HOST}:{DB_PORT}/{DB_NOME}"
         )
-        print(DB_URL)
+        print(f"Servidor iniciado utilizando: {DB_BANCO}")
 
     # Base de modelo do SQLAlchemy
     DBBaseModel: DeclarativeMeta = declarative_base()
