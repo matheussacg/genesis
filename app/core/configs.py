@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     # Rota base da API
     TITLE: str = os.getenv("TITLE")
     API_V1_STR: str = os.getenv("API_V1_STR")
-    DB_BANCO: str = "postgresql+asyncpg"
 
     # Configurações de banco de dados
     if tipo_ambiente == "dev":
@@ -27,6 +26,7 @@ class Settings(BaseSettings):
         DB_SENHA: ClassVar[str] = os.getenv("PROD_DB_PASSWORD")
         DB_HOST: ClassVar[str] = os.getenv("PROD_DB_HOST")
         DB_PORT: ClassVar[str] = os.getenv("PROD_DB_PORT")
+        DB_BANCO: str = "postgresql+asyncpg"
 
         # Verifica se todas as variáveis de ambiente foram carregadas corretamente
         if not all([DB_NOME, DB_USER, DB_SENHA, DB_HOST, DB_PORT]):
