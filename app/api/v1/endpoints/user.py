@@ -11,8 +11,9 @@ from sqlalchemy.future import select
 from app.core.auth import criar_token_acesso_formulario
 from app.core.configs import config
 from app.core.deps import get_session
+from app.core.security import gerar_hash_senha
 from app.models.models import User as UserModel
-from app.schema.user_schema import EmailSchema, User, UserCreate
+from app.schemas.user_schema import EmailSchema, User, UserCreate
 
 load_dotenv()
 link_acesso_base = os.getenv("LINK_ACESSO")
@@ -67,7 +68,24 @@ async def enviar_link_acesso(email_schema: EmailSchema):
 async def create_user(
     user: UserCreate, session: AsyncSession = Depends(get_session)
 ):
-    db_user = UserModel(username=user.username, email=user.email)
+    # Verificar se o e-mail já existe na base de dados
+    async with session.begin():
+        result = await session.execute(
+            select(UserModel).filter_by(email=user.email)
+        )
+        existing_user = result.scalars().first()
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered",
+            )
+
+    hashed_password = gerar_hash_senha(user.password)  # Gerar hash da senha
+    db_user = UserModel(
+        username=user.username,
+        email=user.email,
+        hashed_password=hashed_password,
+    )
     session.add(db_user)
     await session.commit()
     await session.refresh(db_user)
@@ -117,6 +135,12 @@ async def update_user(
 
     db_user.username = user_update.username
     db_user.email = user_update.email
+
+    if user_update.password:  # Verifica se a senha foi fornecida
+        db_user.hashed_password = gerar_hash_senha(
+            user_update.password
+        )  # Atualizar senha com hash
+
     await session.commit()
     await session.refresh(db_user)
     return db_user

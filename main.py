@@ -2,10 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.api import api_router
+from app.core.admin import init_admin
 from app.core.configs import settings
 
 app = FastAPI(title=settings.TITLE)
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+# Inicializando o painel de administração
+init_admin(app)
 
 app.add_middleware(
     CORSMiddleware,

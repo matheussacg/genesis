@@ -16,6 +16,9 @@ def upgrade() -> None:
         "users",
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("username", sa.String, unique=True, index=True),
+        sa.Column(
+            "hashed_password", sa.String, unique=False, index=True
+        ),  # Adicionado o campo hashed_password
         sa.Column("email", sa.String, unique=True, index=True),
     )
 
@@ -25,16 +28,35 @@ def upgrade() -> None:
         sa.MetaData(),
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("username", sa.String, unique=True, index=True),
+        sa.Column(
+            "hashed_password", sa.String, unique=False, index=True
+        ),  # Adicionado o campo hashed_password
         sa.Column("email", sa.String, unique=True, index=True),
     )
 
     op.bulk_insert(
         users_table,
         [
-            {"username": "alice", "email": "alice@example.com"},
-            {"username": "bob", "email": "bob@example.com"},
-            {"username": "jack", "email": "jack@example.com"},
-            {"username": "mat", "email": "mat@exemple.com"},
+            {
+                "username": "alice",
+                "hashed_password": "senha_hasheada_alice",
+                "email": "alice@example.com",
+            },
+            {
+                "username": "bob",
+                "hashed_password": "senha_hasheada_bob",
+                "email": "bob@example.com",
+            },
+            {
+                "username": "jack",
+                "hashed_password": "senha_hasheada_jack",
+                "email": "jack@example.com",
+            },
+            {
+                "username": "mat",
+                "hashed_password": "senha_hasheada_mat",
+                "email": "mat@exemple.com",
+            },
         ],
     )
 
