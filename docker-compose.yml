@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    restart: always
+    environment:
+      PROD_DB_NAME: ${PROD_DB_NAME}
+      PROD_DB_USER: ${PROD_DB_USER}
+      PROD_DB_PASSWORD: ${PROD_DB_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TIPO_AMBIENTE: ${TIPO_AMBIENTE}
+      JWT_SECRET: ${JWT_SECRET}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+      API_V1_STR: ${API_V1_STR}
+      TITLE: ${TITLE}
+      DEV_LOG_LEVEL: ${DEV_LOG_LEVEL}
+      DEV_RELOAD: ${DEV_RELOAD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  python-back:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-backend
+    volumes:
+      - ./:/app
+    networks:
+      - my_network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    restart: always
+    
+  portainer_agent:
+    container_name: portainer_agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - "9001:9001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - my_network
+  
+  
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
