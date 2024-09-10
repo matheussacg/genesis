@@ -2,7 +2,8 @@ from typing import AsyncGenerator
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials
-from jose import JWTError, jwt
+import jwt
+from jwt import PyJWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.auth import oauth2_schema
@@ -43,7 +44,7 @@ async def validate_form_token(
         )
         if "form_access" not in payload.get("scopes", []):
             raise credential_exception
-    except JWTError:
+    except PyJWTError:
         raise credential_exception
 
     return payload["sub"]

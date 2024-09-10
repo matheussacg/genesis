@@ -41,9 +41,9 @@ pydantic==2.8.2
 pydantic-settings==2.4.0
 pydantic_core==2.20.1
 pyflakes==3.2.0
+PyJWT==2.9.0
 python-decouple==3.8
 python-dotenv==1.0.1
-python-jose==3.2.0
 python-multipart==0.0.9
 pytz==2024.1
 PyYAML==6.0.1
