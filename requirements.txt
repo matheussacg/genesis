@@ -12,7 +12,7 @@ click==8.1.7
 colorama==0.4.6
 distlib==0.3.8
 dnspython==2.6.1
-ecdsa==0.19.0
+ecdsa==0.14.1
 email_validator==2.2.0
 fastapi==0.112.0
 fastapi-mail==1.4.1
@@ -43,7 +43,7 @@ pydantic_core==2.20.1
 pyflakes==3.2.0
 python-decouple==3.8
 python-dotenv==1.0.1
-python-jose==3.3.0
+python-jose==3.2.0
 python-multipart==0.0.9
 pytz==2024.1
 PyYAML==6.0.1
