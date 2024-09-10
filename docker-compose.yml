@@ -1,11 +1,10 @@
-version: '3'
-
 services:
   postgres:
     image: postgres:latest
     env_file:
       - .env
     restart: always
+    container_name: postgres-db
     environment:
       PROD_DB_NAME: ${PROD_DB_NAME}
       PROD_DB_USER: ${PROD_DB_USER}
@@ -49,7 +48,7 @@ services:
     image: portainer/agent:latest
     restart: always
     ports:
-      - "9001:9001"
+      - "9002:9001"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
