@@ -38,8 +38,8 @@ def upgrade() -> None:
         users_table,
         [
             {
-                "username": "alice",
-                "hashed_password": "senha_hasheada_alice",
+                "username": "admin",
+                "hashed_password": "$2b$12$mV86M0ri9h84FU5mBzFHLe.sSkbVFjVTuptR/dVwXZxGGS.FAS33K",
                 "email": "alice@example.com",
             },
             {
