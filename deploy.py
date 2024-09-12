@@ -8,7 +8,7 @@ REPO_DIR = os.getcwd()
 DOCKER_COMPOSE_DIR = REPO_DIR
 
 # Nome da imagem e do container Docker
-IMAGE_NAME = "dabura"
+IMAGE_NAME = "genesis"
 CONTAINER_NAME = "app-backend"
 
 
