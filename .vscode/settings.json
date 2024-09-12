@@ -1,22 +1,9 @@
 {
     "editor.minimap.enabled": false,
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "liveServer.settings.donotShowInfoMsg": true,
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "workbench.colorTheme": "OM Theme (Default Dracula Italic)",
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "files.autoSave": "afterDelay",
     "git.confirmSync": false,
     "cmake.showOptionsMovedNotification": false,
-    "[vue]": {
-        "editor.defaultFormatter": "Vue.volar"
-    },
     // Formatação ao salvar usando Black
     "editor.formatOnSave": true,
     "[python]": {

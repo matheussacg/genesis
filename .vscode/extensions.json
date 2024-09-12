@@ -1,10 +1,9 @@
 {
-    "recommendations": [
-      "ms-python.python",
-      "esbenp.prettier-vscode",
-      "ms-python.black-formatter",
-      "charliermarsh.ruff",
-    ],
-    "unwantedRecommendations": []
-  }
-  
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "ms-python.flake8",
+    "ms-python.isort"
+  ],
+  "unwantedRecommendations": []
+}
