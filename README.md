@@ -133,7 +133,7 @@ Docker Compose
 
 #### Passo a Passo para Executar o Projeto
 
-- 1 Clone o repositório do projeto
+- 1- Clone o repositório do projeto
 
   Primeiro, clone o repositório do projeto para o seu ambiente local:
 
@@ -141,7 +141,7 @@ Docker Compose
   docker-compose build
   ```
 
-- 2 Inicie os containers
+- 2- Inicie os containers
 
   Após a construção, inicie os containers com o seguinte comando:
 
@@ -151,11 +151,11 @@ Docker Compose
 
   Este comando irá iniciar todos os serviços definidos no docker-compose.yml.
 
-- 3 Acessando a aplicação
+- 3- Acessando a aplicação
 
   Uma vez que os containers estejam rodando, acesse a aplicação através do endereço configurado (http://localhost:PORTA). A porta exata pode ser encontrada no seu arquivo docker-compose.yml.
 
-- 4 Parando os containers
+- 4- Parando os containers
 
   Para parar os containers, utilize o comando:
 
@@ -165,7 +165,7 @@ Docker Compose
 
   Este comando irá parar e remover todos os containers criados, liberando os recursos do sistema.
 
-- 5 Comandos Úteis
+- 5- Comandos Úteis
 
   #### Reconstruir a aplicação após alterações:
 
