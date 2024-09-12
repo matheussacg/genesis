@@ -4,9 +4,9 @@
 
 ## Backend
 
-## Como começar?
+### Como começar?
 
-01. **Clonar repositório**: Clone o projeto diarias para sua máquina local.
+## 01. **Clonar repositório**: Clone o projeto diarias para sua máquina local.
 
 ```bash
 # Clone HTTPS
@@ -18,7 +18,7 @@ git clone git@github.com:matheussacg/boilerplate-fastapi-postgres.git nome_do_pr
 cd nome_do_projeto
 ```
 
-02. **Configurar Ambiente Virtual (Opcional para ambiente local)**:
+## 02. **Configurar Ambiente Virtual (Opcional para ambiente local)**:
 
 - Crie e ative um ambiente virtual para isolar as dependências do projeto:
 
@@ -30,7 +30,7 @@ python -m venv venv
 source venv/bin/activate # macOS/Linux
 ```
 
-03. **Instalar Dependências (Opcional para ambiente local)**:
+## 03. **Instalar Dependências (Opcional para ambiente local)**:
 
 - Instale as dependências necessárias:
 
@@ -38,7 +38,7 @@ source venv/bin/activate # macOS/Linux
 pip install -r requirements.txt
 ```
 
-04. **Criação de Token de Segurança**:
+## 04. **Criação de Token de Segurança**:
 
 - Para gerar um token de segurança, execute o seguinte comando:
 
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 python -c "import secrets; print(secrets.token_urlsafe(32))"
 ```
 
-05. **Configuração do Ambiente .env**:
+## 05. **Configuração do Ambiente .env**:
 
 - Na raiz do projeto existe um arquivo chamado `.env-example` com toda estrutura feita, altere com seus dados.
 
@@ -91,7 +91,7 @@ JWT_SECRET=gfhfh9MhZojq567ncxEBghghlRA_5aHEELngSghg
 LINK_ACESSO=sistemabase.teste.com.br
 ```
 
-06. **Executar a aplicação**:
+## 06. **Executar a aplicação**:
 
 - A aplicação é inicializada de acordo com a configuração definida na variável TIPO_AMBIENTE no arquivo .env. Dependendo do valor atribuído, o sistema será executado em modo de desenvolvimento ou produção, com as configurações correspondentes:
 
@@ -115,7 +115,7 @@ TIPO_AMBIENTE='prod'
 python main.py
 ```
 
-07. **Executando o ambiente com Docker**:
+## 07. **Executando o ambiente com Docker**:
 
 #### Descrição
 
@@ -125,12 +125,15 @@ python main.py
 
 - Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina:
 
-**Docker**
-**Docker Compose**
+```plaintext
+Docker
+
+Docker Compose
+```
 
 #### Passo a Passo para Executar o Projeto
 
-- 1. Clone o repositório do projeto
+- 1 Clone o repositório do projeto
 
   Primeiro, clone o repositório do projeto para o seu ambiente local:
 
@@ -138,7 +141,7 @@ python main.py
   docker-compose build
   ```
 
-- 2. Inicie os containers
+- 2 Inicie os containers
 
   Após a construção, inicie os containers com o seguinte comando:
 
@@ -148,11 +151,11 @@ python main.py
 
   Este comando irá iniciar todos os serviços definidos no docker-compose.yml.
 
-- 3. Acessando a aplicação
+- 3 Acessando a aplicação
 
-  Uma vez que os containers estejam rodando, acesse a aplicação através do endereço configurado (http://localhost:<PORTA>). A porta exata pode ser encontrada no seu arquivo docker-compose.yml.
+  Uma vez que os containers estejam rodando, acesse a aplicação através do endereço configurado (http://localhost:PORTA). A porta exata pode ser encontrada no seu arquivo docker-compose.yml.
 
-- 4. Parando os containers
+- 4 Parando os containers
 
   Para parar os containers, utilize o comando:
 
@@ -162,7 +165,7 @@ python main.py
 
   Este comando irá parar e remover todos os containers criados, liberando os recursos do sistema.
 
-- 5. Comandos Úteis
+- 5 Comandos Úteis
 
   #### Reconstruir a aplicação após alterações:
 
@@ -180,7 +183,7 @@ python main.py
   docker exec -it <NOME_DO_CONTAINER> /bin/bash
   ```
 
-08. **Banco de Dados e Migrações**:
+## 08. **Banco de Dados e Migrações**:
 
 - Certifique-se de que as variáveis de ambiente relacionadas ao banco de dados estejam configuradas corretamente no arquivo `.env`.
 
@@ -196,7 +199,7 @@ alembic current
 alembic upgrade head
 ```
 
-09. **Configurações de Formatação e Linting**:
+## 09. **Configurações de Formatação e Linting**:
 
 #### Black - Formatação de Código
 
@@ -225,7 +228,7 @@ flake8 .
 flake8 .\main.py # Diretório específico
 ```
 
-10. **Pre-commit**:
+## 10. **Pre-commit**:
 
 #### Automatização com Pre-commit
 
@@ -243,7 +246,7 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-11. **SQLAdmin - Painel Administrativo do Sistema**:
+## 11. **SQLAdmin - Painel Administrativo do Sistema**:
 
 O projeto utiliza o SQLAdmin para gerenciar o painel administrativo, permitindo a visualização e edição dos dados através de uma interface amigável.
 
@@ -288,7 +291,7 @@ Local:
 python main.py
 ```
 
-12. **Estrutura do Projeto**:
+## 12. **Estrutura do Projeto**:
 
 ### Diretórios
 
