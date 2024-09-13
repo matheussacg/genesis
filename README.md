@@ -55,7 +55,7 @@ python -c "import secrets; print(secrets.token_urlsafe(32))"
 Você também pode clonar o arquivo `.env-example` com o comando abaixo:
 
 ```bash
-cp .env_example .env
+cp .env-example .env
 ```
 
 ```plaintext
@@ -131,11 +131,25 @@ Docker
 Docker Compose
 ```
 
+#### Observação Importante!
+
+**Parando o PostgreSQL Local Antes de Executar o Script de Deploy**
+
+Ao executar o script de deploy, é essencial garantir que o PostgreSQL local da máquina não interfira com o PostgreSQL do container Docker, especialmente quando ambos estão configurados para usar a mesma porta (5432). Caso contrário, você pode enfrentar erros de conexão ou conflitos de porta, impedindo que o container funcione corretamente.
+
+Parar o Serviço PostgreSQL:
+
+```bash
+sudo systemctl stop postgresql
+```
+
+Esse comando interrompe o serviço PostgreSQL que está rodando na sua máquina, liberando a porta 5432 para o container Docker.
+
 #### Passo a Passo para Executar o Projeto
 
-- 1 - Clone o repositório do projeto
+- 1 - Construa os containers
 
-  Primeiro, clone o repositório do projeto para o seu ambiente local:
+  Para construir os containers definidos no Dockerfile e no docker-compose.yml, execute o comando abaixo:
 
   ```bash
   docker-compose build
@@ -182,6 +196,45 @@ Docker Compose
   ```bash
   docker exec -it <NOME_DO_CONTAINER> /bin/bash
   ```
+
+- **6 - Deploy Automático com Script Python**
+
+  Este script automatiza o processo de deploy do seu ambiente utilizando Git e Docker. Ele executa uma série de etapas que incluem a atualização do código, remoção de containers e imagens antigas, reinício do ambiente Docker, e aplicação de migrações de banco de dados via Alembic.
+
+  #### Pré-requisitos
+
+  - Git: Certifique-se de que o Git está instalado e configurado no servidor.
+  - Docker: O Docker e o Docker Compose devem estar instalados e configurados corretamente.
+  - Python: O script é escrito em Python, portanto, o Python 3.x deve estar instalado.
+  - Alembic: O Alembic deve estar configurado no projeto para aplicar as migrações de banco de dados.
+  - Permissões de Sudo: O script executa comandos com sudo, portanto, permissões administrativas são necessárias.
+
+  #### Etapas do Script
+
+  - Atualização do Repositório Git (git_pull): Atualiza o repositório com as últimas mudanças do branch atual.
+  - Remoção do Container Docker (remove_container): Remove o container antigo para evitar conflitos.
+  - Remoção da Imagem Docker (remove_image): Remove a imagem Docker antiga para garantir que a versão mais recente seja utilizada.
+  - Início do Docker Compose (start_docker_compose): Reinicia o ambiente usando o arquivo docker-compose.yml.
+  - Aplicação de Migrações com Alembic (run_alembic_upgrade): Executa as migrações de banco de dados para garantir que o esquema esteja atualizado.
+
+  #### Como Usar o Script
+
+  Executar o Script:
+
+  ```bash
+  python deploy.py
+  ```
+
+  Caso encontre problemas com permissões, use sudo:
+
+  ```bash
+  sudo python deploy.py
+  ```
+
+  #### Avisos Importantes
+
+  - Sempre verifique o conteúdo do script antes de executá-lo em produção.
+  - Faça backups dos dados importantes antes de executar qualquer atualização ou migração.
 
 ## 08. **Banco de Dados e Migrações**:
 
