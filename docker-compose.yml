@@ -6,9 +6,10 @@ services:
     restart: always
     container_name: postgres-db
     environment:
-      POSTGRES_DB: ${PROD_DB_NAME}
-      POSTGRES_USER: ${PROD_DB_USER}
-      POSTGRES_PASSWORD: ${PROD_DB_PASSWORD}
+      PROD_DB_NAME: ${PROD_DB_NAME}
+      PROD_DB_USER: ${PROD_DB_USER}
+      PROD_DB_PASSWORD: ${PROD_DB_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       TIPO_AMBIENTE: ${TIPO_AMBIENTE}
       JWT_SECRET: ${JWT_SECRET}
       MAIL_USERNAME: ${MAIL_USERNAME}
@@ -26,11 +27,10 @@ services:
       - my_network
 
   python-back:
-    build:
+    build: 
       context: .
       dockerfile: Dockerfile
     container_name: app-backend
-    image: genesis
     volumes:
       - ./:/app
     networks:
@@ -42,7 +42,7 @@ services:
     env_file:
       - .env
     restart: always
-
+    
   portainer_agent:
     container_name: portainer_agent
     image: portainer/agent:latest
@@ -54,6 +54,30 @@ services:
       - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
       - my_network
+  
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - my_network
+
+  coin-api:
+    container_name: coin-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: 'on-failure'
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+
 
 networks:
   my_network:
@@ -62,4 +86,3 @@ networks:
 volumes:
   postgres-data:
     driver: local
-
