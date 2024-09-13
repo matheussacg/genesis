@@ -14,6 +14,9 @@ from app.core.deps import get_session
 from app.core.security import gerar_hash_senha
 from app.models.models import User as UserModel
 from app.schemas.user_schema import EmailSchema, User, UserCreate
+from prometheus_client import Counter
+
+from fastapi import Request
 
 load_dotenv()
 link_acesso_base = os.getenv("LINK_ACESSO")
@@ -21,8 +24,16 @@ link_acesso_base = os.getenv("LINK_ACESSO")
 router = APIRouter()
 
 
+endpoint_counter = Counter(
+    'api_requests_total',
+    'Total number of API requests',
+    ['method', 'endpoint']
+)
+
+
 @router.post("/enviar-link-acesso", status_code=status.HTTP_202_ACCEPTED)
-async def enviar_link_acesso(email_schema: EmailSchema):
+async def enviar_link_acesso(request: Request, email_schema: EmailSchema):
+    endpoint_counter.labels(method=request.method, endpoint="/enviar-link-acesso").inc()
     email = email_schema.email
 
     if not email.endswith("@fesfsus.ba.gov.br"):
@@ -66,8 +77,9 @@ async def enviar_link_acesso(email_schema: EmailSchema):
 
 @router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 async def create_user(
-    user: UserCreate, session: AsyncSession = Depends(get_session)
+    request: Request, user: UserCreate, session: AsyncSession = Depends(get_session)
 ):
+    endpoint_counter.labels(method=request.method, endpoint="/").inc()
     # Verificar se o e-mail já existe na base de dados
     async with session.begin():
         result = await session.execute(
@@ -93,7 +105,8 @@ async def create_user(
 
 
 @router.get("/{user_id}", response_model=User)
-async def get_user(user_id: int, session: AsyncSession = Depends(get_session)):
+async def get_user(request: Request, user_id: int, session: AsyncSession = Depends(get_session)):
+    endpoint_counter.labels(method=request.method, endpoint=f"/{user_id}").inc()
     query = select(UserModel).where(UserModel.id == user_id)
     result = await session.execute(query)
     user = result.scalars().first()
@@ -108,10 +121,12 @@ async def get_user(user_id: int, session: AsyncSession = Depends(get_session)):
 
 @router.get("/", response_model=List[User])
 async def list_users(
+    request: Request,
     skip: int = 0,
     limit: int = 10,
     session: AsyncSession = Depends(get_session),
 ):
+    endpoint_counter.labels(method=request.method, endpoint="/").inc()
     query = select(UserModel).offset(skip).limit(limit)
     result = await session.execute(query)
     users = result.scalars().all()
@@ -120,10 +135,12 @@ async def list_users(
 
 @router.put("/{user_id}", response_model=User)
 async def update_user(
+    request: Request,
     user_id: int,
     user_update: UserCreate,
     session: AsyncSession = Depends(get_session),
 ):
+    endpoint_counter.labels(method=request.method, endpoint=f"/{user_id}").inc()
     query = select(UserModel).where(UserModel.id == user_id)
     result = await session.execute(query)
     db_user = result.scalars().first()

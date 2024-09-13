@@ -7,6 +7,7 @@ from app.core.configs import settings
 
 app = FastAPI(title=settings.TITLE)
 app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(api_router)
 
 # Inicializando o painel de administração
 init_admin(app)

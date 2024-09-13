@@ -4,3 +4,26 @@ line-length = 79
 [tool.isort]
 profile = "black"
 line_length = 79
+
+[tool.mypy]
+allow_redefinition = true
+disallow_untyped_defs = true
+disallow_any_unimported = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/helpers"
+markers = ["slow: mark test as slow."]
+asyncio_mode = "auto"
+
+[tool.pytest.ini_options]
+norecursedirs = "tests/helpers"
+markers = [
+    "slow: mark test as slow.",
+]
+asyncio_mode = "auto"
+addopts = "--maxfail=5 --disable-warnings -q"
+
