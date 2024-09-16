@@ -1,11 +1,8 @@
 {
-  "editor.minimap.enabled": false,
-  "workbench.colorTheme": "OM Theme (Default Dracula Italic)",
-  "files.autoSave": "off",
+  "files.autoSave": "onFocusChange",
   "git.confirmSync": false,
-  "cmake.showOptionsMovedNotification": false,
   // Formatação ao salvar usando Black
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
